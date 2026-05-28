@@ -9,7 +9,7 @@ function siteRootUrl(): URL {
 
 /** Join a site path with the configured `base` (safe regardless of trailing slashes). */
 export function withBase(path: string): string {
-    if (!path || path.startsWith('http://') || path.startsWith('https://')) {
+    if (path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
 
@@ -20,7 +20,8 @@ export function withBase(path: string): string {
         return `${basePath}${path}`;
     }
 
-    const url = new URL(path.replace(/^\//, ''), root);
+    const relativePath = path.replace(/^\//, '');
+    const url = new URL(relativePath || '.', root);
     return `${url.pathname}${url.search}${url.hash}`;
 }
 
