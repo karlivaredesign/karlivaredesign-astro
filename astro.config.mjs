@@ -5,7 +5,7 @@ import mdx from '@astrojs/mdx';
 // https://astro.build/config
 export default defineConfig({
     integrations: [mdx()],
-    site: 'https://karlivaredesign.github.io',
+    site: 'https://karlivare.com',
     base: '/karlivaredesign-astro',
     trailingSlash: 'always',
 });
