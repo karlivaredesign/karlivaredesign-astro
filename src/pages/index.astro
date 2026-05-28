@@ -10,7 +10,7 @@ import { getCollection } from 'astro:content';
 const projects = (await getCollection('projects')).sort(
     (a, b) => a.data.sortOrder - b.data.sortOrder
 );
-const projectHref = (id: string) => withBase(`projects/${id}`);
+const projectHref = (id: string) => withBase(`projects/${id}/`);
 ---
 
 <BaseLayout title="Karli Vare">

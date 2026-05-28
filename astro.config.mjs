@@ -7,4 +7,5 @@ export default defineConfig({
     integrations: [mdx()],
     site: 'https://karlivaredesign.github.io',
     base: '/karlivaredesign-astro',
+    trailingSlash: 'always',
 });

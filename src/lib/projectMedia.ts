@@ -3,22 +3,25 @@ import type { Media } from '../components/ProjectCard.astro';
 
 type ProjectEntry = CollectionEntry<'projects'>;
 
-/** Join a site path with `base` (handles BASE_URL with or without a trailing slash). */
+function siteRootUrl(): URL {
+    return new URL(import.meta.env.BASE_URL, import.meta.env.SITE);
+}
+
+/** Join a site path with the configured `base` (safe regardless of trailing slashes). */
 export function withBase(path: string): string {
     if (!path || path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
 
-    const base = import.meta.env.BASE_URL;
+    const root = siteRootUrl();
 
     if (path.startsWith('#')) {
-        const root = base.endsWith('/') ? base.slice(0, -1) : base;
-        return `${root}${path}`;
+        const basePath = root.pathname.replace(/\/$/, '');
+        return `${basePath}${path}`;
     }
 
-    const normalizedBase = base.endsWith('/') ? base : `${base}/`;
-    const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
-    return `${normalizedBase}${normalizedPath}`;
+    const url = new URL(path.replace(/^\//, ''), root);
+    return `${url.pathname}${url.search}${url.hash}`;
 }
 
 /** Prefix public/ paths with the site base (e.g. /karlivaredesign-astro/). */
