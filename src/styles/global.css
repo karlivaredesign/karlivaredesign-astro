@@ -1,15 +1,15 @@
 /* ─────────────────────────────────────────────────────────
    Portfolio Design Tokens — Typography
-   Fonts: Ofelia Text (display/headings), Arial (body/labels)
+   Fonts: ofelia-text via Adobe Fonts (display/headings), Arial (body/labels)
    Colors: cream #fdf3e9 | charcoal #585551 | teal #547b88
 ───────────────────────────────────────────────────────── */
 
 :root {
-    --font-display: 'Ofelia Text', Georgia, serif;
-    --font-heading: 'Ofelia Text', Georgia, serif;
-    --font-nav-link: 'Ofelia Text', Georgia, serif;
-    --font-project-card: 'Ofelia Text', Georgia, serif;
-    --font-button: 'Ofelia Text', Georgia, serif;
+    --font-display: 'ofelia-text', Georgia, serif;
+    --font-heading: 'ofelia-text', Georgia, serif;
+    --font-nav-link: 'ofelia-text', Georgia, serif;
+    --font-project-card: 'ofelia-text', Georgia, serif;
+    --font-button: 'ofelia-text', Georgia, serif;
     --font-body: Arial, Helvetica, sans-serif;
     --font-caption: Arial, Helvetica, sans-serif;
   
@@ -119,7 +119,7 @@
   
   /* ─── Display ─────────────────────────────────────────────
      Large → Small responsive variants
-     All display uses Ofelia Text
+     All display uses ofelia-text
   ──────────────────────────────────────────────────────── */
   
   .display-1-lg {
@@ -189,7 +189,7 @@
   
   /* ─── Headings ────────────────────────────────────────────
      Large → Small responsive variants
-     All headings use Ofelia Text
+     All headings use ofelia-text
   ──────────────────────────────────────────────────────── */
   
   .heading-1-lg {
