@@ -3,15 +3,27 @@ import type { Media } from '../components/ProjectCard.astro';
 
 type ProjectEntry = CollectionEntry<'projects'>;
 
-/** Prefix public/ paths with the site base (e.g. /karlivaredesign-astro/). */
-export function resolvePublicPath(path: string): string {
+/** Join a site path with `base` (handles BASE_URL with or without a trailing slash). */
+export function withBase(path: string): string {
     if (!path || path.startsWith('http://') || path.startsWith('https://')) {
         return path;
     }
 
     const base = import.meta.env.BASE_URL;
-    const cleanPath = path.startsWith('/') ? path.slice(1) : path;
-    return `${base}${cleanPath}`;
+
+    if (path.startsWith('#')) {
+        const root = base.endsWith('/') ? base.slice(0, -1) : base;
+        return `${root}${path}`;
+    }
+
+    const normalizedBase = base.endsWith('/') ? base : `${base}/`;
+    const normalizedPath = path.startsWith('/') ? path.slice(1) : path;
+    return `${normalizedBase}${normalizedPath}`;
+}
+
+/** Prefix public/ paths with the site base (e.g. /karlivaredesign-astro/). */
+export function resolvePublicPath(path: string): string {
+    return withBase(path);
 }
 
 /** Shared cover media for listing card and project hero. */

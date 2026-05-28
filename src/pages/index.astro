@@ -4,13 +4,13 @@ import Navigation from '../components/Navigation.astro';
 import MissionStatement from '../components/MissionStatement.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import AboutMe from '../components/AboutMe.astro';
-import { getCoverMedia } from '../lib/projectMedia';
+import { getCoverMedia, withBase } from '../lib/projectMedia';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort(
     (a, b) => a.data.sortOrder - b.data.sortOrder
 );
-const projectHref = (id: string) => `${import.meta.env.BASE_URL}projects/${id}`;
+const projectHref = (id: string) => withBase(`projects/${id}`);
 ---
 
 <BaseLayout title="Karli Vare">

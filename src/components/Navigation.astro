@@ -7,8 +7,10 @@ export type Props = {
 
 const { variant = 'light' } = Astro.props;
 const isDark = variant === 'dark';
-const homeHref = import.meta.env.BASE_URL;
-const aboutHref = `${import.meta.env.BASE_URL}#about-me`;
+import { withBase } from '../lib/projectMedia';
+
+const homeHref = withBase('');
+const aboutHref = withBase('#about-me');
 ---
 
 <div class="navigation-offset" aria-hidden="true"></div>
