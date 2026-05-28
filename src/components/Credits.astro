@@ -1,0 +1,82 @@
+---
+export type Props = {
+    credits: Record<string, string>;
+    class?: string;
+};
+
+const { credits, class: className } = Astro.props;
+const entries = Object.entries(credits);
+---
+
+<section class:list={['credits', className]} aria-labelledby="credits-heading">
+    <div class="credits__heading">
+        <h2 id="credits-heading" class="credits__title heading-4-sm">Credits</h2>
+    </div>
+
+    <dl class="credits__list">
+        {
+            entries.map(([key, value]) => (
+                <div class="credits__row">
+                    <dt class="label-base credits__key">{key}:</dt>
+                    <dd class="body-base credits__value">{value}</dd>
+                </div>
+            ))
+        }
+    </dl>
+</section>
+
+<style>
+    .credits {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        padding-block: 80px;
+        padding-inline: 0;
+    }
+
+    .credits__heading h2 {
+        margin: 0;
+    }
+
+    .credits__list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin: 0;
+        padding: 0;
+    }
+
+    .credits__row {
+        display: flex;
+        gap: 12px;
+        margin: 0;
+    }
+
+    .credits__key,
+    .credits__value {
+        margin: 0;
+    }
+
+    @media (min-width: 1024px) {
+        .credits {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            column-gap: var(--grid-gutter);
+            align-items: start;
+            gap: 0;
+        }
+
+        .credits__heading {
+            grid-column: 1 / span 3;
+        }
+
+        .credits__title {
+            font-size: 24px;
+        }
+
+        .credits__list {
+            grid-column: 7 / span 6;
+            min-width: 0;
+        }
+    }
+</style>

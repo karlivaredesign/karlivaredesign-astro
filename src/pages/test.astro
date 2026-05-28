@@ -1,0 +1,216 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import NavLink from '../components/NavLink.astro';
+import Navigation from '../components/Navigation.astro';
+import YearTag from '../components/YearTag.astro';
+import Button from '../components/Button.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { getCoverMedia } from '../lib/projectMedia';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const draigProject = projects.find((project) => project.id === 'draig-therapeutics');
+---
+
+<BaseLayout title="Component Test">
+    <section class="grid-span-full breakpoint-demo" aria-label="Breakpoint preview">
+        <h2 class="heading-5-lg">Breakpoint Preview</h2>
+        <p class="body-sm">
+            Base styles are mobile-first. Resize the viewport to see named ranges
+            activate.
+        </p>
+        <div class="breakpoint-demo__chips">
+            <span class="breakpoint-chip">default: &lt; 480 (mobile base)</span>
+            <span class="breakpoint-chip u-show-sm-up">sm: ≥ 480</span>
+            <span class="breakpoint-chip u-show-md-up">md: ≥ 768</span>
+            <span class="breakpoint-chip u-show-lg-up">lg: ≥ 1024</span>
+            <span class="breakpoint-chip u-show-xl-up">xl: ≥ 1440</span>
+        </div>
+    </section>
+
+    <section class="grid-span-full grid-demo" aria-label="Global grid preview">
+        <div class="grid-demo__column">1</div>
+        <div class="grid-demo__column">2</div>
+        <div class="grid-demo__column">3</div>
+        <div class="grid-demo__column">4</div>
+        <div class="grid-demo__column">5</div>
+        <div class="grid-demo__column u-show-lg-flex">6</div>
+        <div class="grid-demo__column u-show-lg-flex">7</div>
+        <div class="grid-demo__column u-show-lg-flex">8</div>
+        <div class="grid-demo__column u-show-lg-flex">9</div>
+        <div class="grid-demo__column u-show-lg-flex">10</div>
+        <div class="grid-demo__column u-show-lg-flex">11</div>
+        <div class="grid-demo__column u-show-lg-flex">12</div>
+    </section>
+
+    <div class="grid-span-full">
+        <Navigation variant="light" />
+    </div>
+    <div class="grid-span-full preview-card-dark-shell">
+        <Navigation variant="dark" />
+    </div>
+
+    <main class="test-page grid-span-full">
+        <header class="test-header">
+            <h1 class="heading-3-lg">Component Test Page</h1>
+            <p class="body-base">
+                Use this route to preview components while you design. Visit
+                <code>/test</code>.
+            </p>
+        </header>
+
+        <section class="preview-grid">
+            <article class="preview-card">
+                <h2 class="heading-5-lg">YearTag Preview</h2>
+                {draigProject ? (
+                    <YearTag year={draigProject.data.year} />
+                ) : (
+                    <p class="body-sm">Draig project not found.</p>
+                )}
+            </article>
+
+            <article class="preview-card">
+                <h2 class="heading-5-lg">Button Preview</h2>
+                <Button label="view project" href="/projects/draig-therapeutics" />
+            </article>
+
+            <article class="preview-card">
+                <h2 class="heading-5-lg">Light Preview</h2>
+                <nav class="links-row" aria-label="Light navigation preview">
+                    <NavLink label="Projects" href="/projects" />
+                    <NavLink label="About" href="/about" />
+                    <NavLink label="Contact" href="/contact" />
+                </nav>
+            </article>
+
+            <article class="preview-card preview-card-dark" data-theme="dark">
+                <h2 class="heading-5-lg">Dark Preview</h2>
+                <nav class="links-row" aria-label="Dark navigation preview">
+                    <NavLink label="Projects" href="/projects" />
+                    <NavLink label="About" href="/about" />
+                    <NavLink label="Contact" href="/contact" />
+                </nav>
+            </article>
+        </section>
+
+        <section class="project-card-preview" aria-label="Project card preview">
+            <h2 class="heading-5-lg">ProjectCard Preview</h2>
+            {draigProject ? (
+                <ProjectCard
+                    client={draigProject.data.client}
+                    year={draigProject.data.year}
+                    media={getCoverMedia(draigProject)}
+                    listingDescription={draigProject.data.listingDescription}
+                    href={`/projects/${draigProject.id}`}
+                />
+            ) : (
+                <p class="body-sm">Draig project not found.</p>
+            )}
+        </section>
+    </main>
+</BaseLayout>
+
+<style>
+    .test-page {
+        color: inherit;
+    }
+
+    .breakpoint-demo {
+        margin-top: 1rem;
+    }
+
+    .breakpoint-demo h2,
+    .breakpoint-demo p {
+        margin: 0 0 0.5rem;
+    }
+
+    .breakpoint-demo__chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .breakpoint-chip {
+        border: 1px solid var(--color-charcoal);
+        border-radius: 999px;
+        padding: 0.3rem 0.6rem;
+        font-family: var(--font-caption);
+        font-size: 12px;
+        background: color-mix(in srgb, var(--color-teal) 12%, transparent);
+    }
+
+    .test-header {
+        margin-bottom: 2rem;
+    }
+
+    .test-header h1 {
+        margin: 0 0 0.5rem;
+    }
+
+    .test-header p {
+        margin: 0;
+        max-width: 60ch;
+    }
+
+    .preview-grid {
+        display: grid;
+        gap: 1rem;
+    }
+
+    .project-card-preview {
+        margin-top: 2rem;
+    }
+
+    .project-card-preview h2 {
+        margin: 0 0 1rem;
+    }
+
+    .preview-card-dark-shell {
+        background: var(--color-charcoal);
+        border-radius: 12px;
+    }
+
+    .preview-card {
+        border: 1px solid var(--color-charcoal);
+        border-radius: 0.5rem;
+        padding: 1.25rem;
+        background: var(--color-cream);
+        color: var(--color-charcoal);
+    }
+
+    .preview-card h2 {
+        margin: 0 0 0.75rem;
+    }
+
+    .preview-card-dark {
+        background: var(--color-charcoal);
+        color: var(--color-cream);
+        border-color: var(--color-cream);
+    }
+
+    .links-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .grid-demo {
+        display: grid;
+        grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+        gap: var(--grid-gutter);
+        margin-top: 1rem;
+    }
+
+    .grid-demo__column {
+        min-height: 3rem;
+        border: 1px dashed color-mix(in srgb, var(--color-charcoal) 40%, transparent);
+        background: color-mix(in srgb, var(--color-teal) 14%, transparent);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--font-caption);
+        font-size: 12px;
+    }
+
+</style>

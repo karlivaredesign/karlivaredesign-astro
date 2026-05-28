@@ -1,0 +1,111 @@
+---
+import YearTag from './YearTag.astro';
+
+export type Props = {
+    year: number | string;
+    projectDescription: string;
+    deliverables: string[];
+    class?: string;
+};
+
+const { year, projectDescription, deliverables, class: className } = Astro.props;
+---
+
+<section
+    class:list={['about-the-project', className]}
+    aria-labelledby="about-the-project-heading"
+>
+    <div class="about-the-project__heading">
+        <h2 id="about-the-project-heading" class="about-the-project__title heading-3-sm">
+            About the Project
+        </h2>
+    </div>
+
+    <div class="about-the-project__content">
+        <YearTag year={year} />
+
+        <p class="body-base about-the-project__description">{projectDescription}</p>
+
+        <div class="about-the-project__deliverables">
+            <p class="label-lg about-the-project__deliverables-label">Deliverables:</p>
+            <ul class="about-the-project__deliverables-list">
+                {
+                    deliverables.map((deliverable) => (
+                        <li class="body-base about-the-project__deliverable">{deliverable}</li>
+                    ))
+                }
+            </ul>
+        </div>
+    </div>
+</section>
+
+<style>
+    .about-the-project {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        padding-block: 80px;
+        padding-inline: 0;
+    }
+
+    .about-the-project__heading h2 {
+        margin: 0;
+    }
+
+    .about-the-project__content {
+        display: flex;
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .about-the-project__description {
+        margin: 0;
+    }
+
+    .about-the-project__deliverables {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
+    .about-the-project__deliverables-label {
+        margin: 0;
+    }
+
+    .about-the-project__deliverables-list {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    .about-the-project__deliverable {
+        margin: 0;
+        padding-bottom: 8px;
+        border-bottom: 1px solid color-mix(in srgb, var(--color-charcoal) 50%, transparent);
+    }
+
+    @media (min-width: 1024px) {
+        .about-the-project {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            column-gap: var(--grid-gutter);
+            align-items: start;
+        }
+
+        .about-the-project__heading {
+            grid-column: 1 / span 3;
+        }
+
+        .about-the-project__title {
+            font-size: 32px;
+        }
+
+        .about-the-project__content {
+            grid-column: 7 / span 6;
+            min-width: 0;
+        }
+    }
+</style>

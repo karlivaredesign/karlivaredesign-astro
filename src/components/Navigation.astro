@@ -1,0 +1,45 @@
+---
+import NavLink from './NavLink.astro';
+
+export type Props = {
+    variant?: 'light' | 'dark';
+};
+
+const { variant = 'light' } = Astro.props;
+const isDark = variant === 'dark';
+const homeHref = import.meta.env.BASE_URL;
+const aboutHref = `${import.meta.env.BASE_URL}#about-me`;
+---
+
+<div class="navigation-offset" aria-hidden="true"></div>
+
+<nav
+    class="navigation"
+    data-theme={isDark ? 'dark' : undefined}
+    aria-label={`${variant} site navigation`}
+>
+    <NavLink label="home" href={homeHref} />
+    <NavLink label="about" href={aboutHref} />
+    <NavLink label="contact" href="mailto:karlivaredesign@gmail.com" />
+</nav>
+
+<style>
+    .navigation-offset {
+        /* Reserve space in normal flow for fixed nav */
+        height: calc(80px + 44px);
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: var(--grid-margin);
+        right: var(--grid-margin);
+        width: auto;
+        padding: 40px 0;
+        gap: 1rem;
+        z-index: 1000;
+    }
+</style>

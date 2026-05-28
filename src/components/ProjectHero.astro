@@ -1,0 +1,80 @@
+---
+import type { Media } from './ProjectCard.astro';
+
+export type Props = {
+    title: string;
+    media: Media;
+};
+
+const { title, media } = Astro.props;
+const mediaLabel = `${title} project cover`;
+---
+
+<section class="project-hero" aria-label={`${title} project hero`}>
+    <div class="project-hero__media" aria-hidden="true">
+        {
+            media.type === 'video' ? (
+                <video
+                    src={media.src}
+                    poster={media.poster}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                />
+            ) : (
+                <img src={media.src} alt="" />
+            )
+        }
+    </div>
+    <div class="project-hero__overlay" aria-hidden="true"></div>
+    <h1 class="project-hero__title display-2-sm">{title}</h1>
+</section>
+
+<style>
+    .project-hero {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        text-align: center;
+    }
+
+    .project-hero__media {
+        position: absolute;
+        inset: 0;
+    }
+
+    .project-hero__media img,
+    .project-hero__media video {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .project-hero__overlay {
+        position: absolute;
+        inset: 0;
+        background: color-mix(in srgb, var(--color-cream) 75%, transparent);
+        pointer-events: none;
+    }
+
+    .project-hero__title {
+        position: relative;
+        z-index: 1;
+        margin: 0;
+        padding-inline: var(--grid-margin);
+        color: var(--color-charcoal);
+    }
+
+    @media (min-width: 1024px) {
+        .project-hero__title.display-2-sm {
+            font-size: 80px;
+        }
+    }
+</style>

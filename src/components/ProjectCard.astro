@@ -1,0 +1,117 @@
+---
+import YearTag from './YearTag.astro';
+import Button from './Button.astro';
+
+export type Props = {
+    client: string;
+    year: string;
+    listingDescription: string;
+    href: string;
+    published?: boolean;
+    media:
+        | { type: 'image'; src: string }
+        | { type: 'video'; src: string; poster?: string };
+};
+
+const { client, year, listingDescription, href, media, published = false } = Astro.props;
+const mediaLabel = `${client} project preview`;
+---
+
+<article class="project-card-block">
+    <div class="project-card-block__primary">
+        <p class="project-card">{client}</p>
+        {
+            media.type === 'video' ? (
+                <video
+                    class="project-card-block__media"
+                    src={media.src}
+                    poster={media.poster}
+                    autoplay
+                    muted
+                    loop
+                    playsinline
+                    preload="metadata"
+                    aria-label={mediaLabel}
+                />
+            ) : (
+                <img
+                    class="project-card-block__media"
+                    src={media.src}
+                    alt={mediaLabel}
+                    width={354}
+                    height={207}
+                    loading="lazy"
+                />
+            )
+        }
+    </div>
+
+    <div class="project-card-block__secondary">
+        <YearTag year={year} />
+        <p class="body-base project-card-block__description">{listingDescription}</p>
+        <Button
+            label={published ? 'view project' : 'page under construction'}
+            href={published ? href : undefined}
+            disabled={!published}
+        />
+    </div>
+</article>
+
+<style>
+    .project-card-block {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        padding: 40px 0;
+    }
+
+    .project-card-block__primary,
+    .project-card-block__secondary {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 24px;
+    }
+
+    .project-card-block__primary {
+        width: 100%;
+        min-width: 0;
+    }
+
+    .project-card-block__primary .project-card {
+        margin: 0;
+    }
+
+    .project-card-block__media {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 354 / 206.99;
+        object-fit: cover;
+        border: 1px solid rgb(88 85 81 / 45%);
+        box-sizing: border-box;
+        border-radius: 14.43px;
+    }
+
+    .project-card-block__description {
+        margin: 0;
+    }
+
+    @media (min-width: 1024px) {
+        .project-card-block {
+            flex-direction: row;
+            align-items: flex-start;
+            gap: 48px;
+        }
+
+        .project-card-block__primary,
+        .project-card-block__secondary {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .project-card-block__media {
+            border-radius: 32px;
+        }
+    }
+</style>

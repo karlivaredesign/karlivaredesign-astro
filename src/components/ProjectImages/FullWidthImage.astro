@@ -1,0 +1,10 @@
+---
+import ProjectImage from './ProjectImage.astro';
+import type { ProjectFrameMedia } from './types';
+
+export type Props = ProjectFrameMedia;
+
+const props = Astro.props;
+---
+
+<ProjectImage {...props} variant="landscape" />

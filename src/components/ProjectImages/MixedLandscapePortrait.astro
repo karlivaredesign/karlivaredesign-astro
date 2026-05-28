@@ -1,0 +1,20 @@
+---
+import ProjectImage from './ProjectImage.astro';
+import type { ProjectFrameMedia } from './types';
+
+export type Props = {
+    landscape: ProjectFrameMedia;
+    portrait: ProjectFrameMedia;
+};
+
+const { landscape, portrait } = Astro.props;
+---
+
+<div class="project-images-mixed">
+    <div class="project-images-mixed__landscape">
+        <ProjectImage {...landscape} variant="fill" />
+    </div>
+    <div class="project-images-mixed__portrait">
+        <ProjectImage {...portrait} variant="portrait" />
+    </div>
+</div>

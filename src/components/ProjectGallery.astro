@@ -1,0 +1,60 @@
+---
+export type Props = {
+    class?: string;
+};
+---
+
+<section class:list={['project-gallery', Astro.props.class]} aria-label="Project images">
+    <slot />
+</section>
+
+<script>
+    let galleryVideoObserver: IntersectionObserver | null = null;
+
+    function initGalleryViewportVideos(root: ParentNode = document) {
+        galleryVideoObserver?.disconnect();
+
+        const videos = root.querySelectorAll<HTMLVideoElement>('.project-gallery video');
+        if (!videos.length) {
+            galleryVideoObserver = null;
+            return;
+        }
+
+        galleryVideoObserver = new IntersectionObserver(
+            (entries) => {
+                for (const entry of entries) {
+                    const video = entry.target as HTMLVideoElement;
+                    if (entry.isIntersecting) {
+                        void video.play().catch(() => {});
+                    } else {
+                        video.pause();
+                    }
+                }
+            },
+            { threshold: 0.25 },
+        );
+
+        for (const video of videos) {
+            video.pause();
+            galleryVideoObserver.observe(video);
+        }
+    }
+
+    initGalleryViewportVideos();
+    document.addEventListener('astro:page-load', () => initGalleryViewportVideos());
+</script>
+
+<style is:global>
+    @import './ProjectImages/project-images.css';
+</style>
+
+<style>
+    .project-gallery {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        width: 100%;
+        padding-bottom: 80px;
+        margin: 0;
+    }
+</style>

@@ -1,17 +1,50 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Navigation from '../components/Navigation.astro';
+import MissionStatement from '../components/MissionStatement.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import AboutMe from '../components/AboutMe.astro';
+import { getCoverMedia } from '../lib/projectMedia';
+import { getCollection } from 'astro:content';
 
+const projects = (await getCollection('projects')).sort(
+    (a, b) => a.data.sortOrder - b.data.sortOrder
+);
+const projectHref = (id: string) => `${import.meta.env.BASE_URL}projects/${id}`;
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout title="Karli Vare">
+    <section class="grid-span-full">
+        <Navigation variant="light" />
+    </section>
+    <MissionStatement />
+
+    <section class="grid-span-full project-cards" aria-label="Projects">
+        {
+            projects.map((project) => (
+                <ProjectCard
+                    client={project.data.client}
+                    year={project.data.year}
+                    media={getCoverMedia(project)}
+                    listingDescription={project.data.listingDescription}
+                    href={projectHref(project.id)}
+                    published={project.data.published}
+                />
+            ))
+        }
+    </section>
+
+    <section id="about-me" class="grid-span-full about-me-section">
+        <AboutMe imageAlt="Karli Vare" />
+    </section>
+</BaseLayout>
+
+<style>
+    .project-cards {
+        padding-bottom: 80px;
+    }
+
+    .about-me-section {
+        padding-bottom: 80px;
+    }
+</style>

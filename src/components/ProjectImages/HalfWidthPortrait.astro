@@ -1,0 +1,15 @@
+---
+import ProjectImage from './ProjectImage.astro';
+import type { ProjectFrameMedia } from './types';
+
+export type Props = {
+    images: [ProjectFrameMedia, ProjectFrameMedia];
+};
+
+const { images } = Astro.props;
+---
+
+<div class="project-images-row">
+    <ProjectImage {...images[0]} variant="portrait" />
+    <ProjectImage {...images[1]} variant="portrait" />
+</div>

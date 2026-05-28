@@ -1,0 +1,128 @@
+---
+import aboutMeImage from '../assets/images/AboutMe.png';
+
+export type Props = {
+    heading?: string;
+    description?: string;
+    imageSrc?: string;
+    imageAlt?: string;
+};
+
+const {
+    heading = 'hi, I’m Karli!',
+    description = `I’m a designer focused on crafting thoughtful digital experiences across web, marketing, and social media. I’m especially drawn to digital storytelling and capturing emotional states through branding and expressive design. My work balances minimalism with a playful edge, creating experiences that feel clean yet human.
+
+With a background in front-end development, I approach design with both creativity and technical awareness. Understanding how things are built has made me a more strategic designer and a self-proclaimed “troubleshooting queen” who isn’t afraid to dig deep (even if that means finding a YouTube video with 10 views) to master new tools and solve complex problems.
+
+While I primarily focus on digital, my experience in publishing design, including yearbooks and magazines, has given me a lasting appreciation for print and tactile media as well. Outside of design, you can find me outdoors, at the yoga studio, or documenting my knitting/crochet brand on TikTok as @claret_studio.`,
+    imageSrc = aboutMeImage.src,
+    imageAlt = 'About me portrait',
+} = Astro.props;
+
+const [headingLead, headingRest] = heading.split(/,(.*)/s);
+---
+
+<section class="about-me" aria-label="About me">
+    <div class="about-me__text">
+        <h2 class="display-4-lg">
+            <em>{headingLead}</em>{headingRest ? `,${headingRest}` : ''}
+        </h2>
+        <p class="body-base about-me__description">{description}</p>
+    </div>
+
+    <div class="about-me__media">
+        {
+            imageSrc ? (
+                <img src={imageSrc} alt={imageAlt} loading="lazy" />
+            ) : (
+                <div class="about-me__placeholder body-sm">Add PNG image</div>
+            )
+        }
+    </div>
+</section>
+
+<style>
+    .about-me {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 32px;
+    }
+
+    .about-me__text {
+        display: flex;
+        flex-direction: column;
+        gap: 32px;
+        flex: 1;
+    }
+
+    .about-me__text h2,
+    .about-me__text p {
+        margin: 0;
+    }
+
+    .about-me__description {
+        white-space: pre-wrap;
+        tab-size: 4;
+    }
+
+    .about-me__media {
+        width: 100%;
+    }
+
+    .about-me__media img,
+    .about-me__placeholder {
+        display: block;
+        width: 100%;
+        border-radius: 16px;
+    }
+
+    .about-me__media img {
+        height: auto;
+        object-fit: cover;
+    }
+
+    .about-me__placeholder {
+        min-height: 220px;
+        display: grid;
+        place-items: center;
+        color: color-mix(in srgb, var(--color-charcoal) 70%, transparent);
+        background: rgb(88 85 81 / 4%);
+    }
+
+    @media (min-width: 768px) {
+        .about-me {
+            display: grid;
+            grid-template-columns: repeat(12, minmax(0, 1fr));
+            column-gap: var(--grid-gutter);
+            align-items: center;
+        }
+
+        /* Medium: normal grid flow across the full container */
+        .about-me__text {
+            grid-column: span 6;
+            min-width: 0;
+        }
+
+        .about-me__media {
+            grid-column: span 6;
+            width: 100%;
+            max-width: none;
+        }
+    }
+
+    @media (min-width: 1024px) {
+        /* Large: centered module placement */
+        .about-me__media {
+            grid-column: 7 / span 5;
+            width: 100%;
+            max-width: none;
+        }
+
+        .about-me__text {
+            grid-column: 2 / span 5;
+            min-width: 0;
+        }
+    }
+
+
+</style>

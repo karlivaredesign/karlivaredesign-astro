@@ -1,0 +1,42 @@
+---
+import ProjectLayout from '../../layouts/ProjectLayout.astro';
+import AboutTheProject from '../../components/AboutTheProject.astro';
+import Credits from '../../components/Credits.astro';
+import ProjectGallery from '../../components/ProjectGallery.astro';
+import ProjectHero from '../../components/ProjectHero.astro';
+import { projectGalleryMdxComponents } from '../../components/ProjectImages/mdxComponents';
+import { getCoverMedia } from '../../lib/projectMedia';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+    const projects = (await getCollection('projects')).filter((project) => project.data.published);
+
+    return Promise.all(
+        projects.map(async (project) => ({
+            params: { slug: project.id },
+            props: { project },
+        }))
+    );
+}
+
+const { project } = Astro.props;
+const { client, year, projectDescription, deliverables, credits } = project.data;
+const { Content } = await render(project);
+---
+
+<ProjectLayout title={`${client} | Karli Vare`}>
+    <ProjectHero slot="hero" title={client} media={getCoverMedia(project)} />
+
+    <AboutTheProject
+        class="grid-span-full"
+        year={year}
+        projectDescription={projectDescription}
+        deliverables={deliverables}
+    />
+
+    <Credits class="grid-span-full" credits={credits} />
+
+    <ProjectGallery class="grid-span-full">
+        <Content components={projectGalleryMdxComponents} />
+    </ProjectGallery>
+</ProjectLayout>

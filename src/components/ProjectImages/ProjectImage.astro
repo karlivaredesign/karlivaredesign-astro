@@ -1,0 +1,30 @@
+---
+import { resolvePublicPath } from '../../lib/projectMedia';
+import type { ImageVariant, ProjectFrameMedia } from './types';
+
+export type Props = ProjectFrameMedia & {
+    variant?: ImageVariant;
+};
+
+const { src, alt, type = 'image', poster, variant = 'landscape' } = Astro.props;
+const resolvedSrc = resolvePublicPath(src);
+const resolvedPoster = poster ? resolvePublicPath(poster) : undefined;
+---
+
+<figure class:list={['project-image-frame', `project-image-frame--${variant}`]}>
+    {
+        type === 'video' ? (
+            <video
+                src={resolvedSrc}
+                poster={resolvedPoster}
+                muted
+                loop
+                playsinline
+                preload="metadata"
+                aria-label={alt}
+            />
+        ) : (
+            <img src={resolvedSrc} alt={alt} loading="lazy" decoding="async" />
+        )
+    }
+</figure>

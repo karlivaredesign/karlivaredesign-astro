@@ -1,0 +1,57 @@
+---
+export type Props = {
+    label: string;
+    href?: string;
+    disabled?: boolean;
+};
+
+const { label, href, disabled = false } = Astro.props;
+const isDisabled = disabled || !href;
+---
+
+{
+    isDisabled ? (
+        <span class="button btn btn--disabled" aria-disabled="true">
+            {label}
+        </span>
+    ) : (
+        <a class="button btn" href={href}>
+            {label}
+        </a>
+    )
+}
+
+<style>
+    .btn {
+        --btn-color: var(--color-charcoal);
+        --btn-hover-color: var(--color-charcoal);
+
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--btn-color);
+        border: 1px solid var(--btn-color);
+        border-radius: 16px;
+        padding: 8px 16px;
+        text-transform: lowercase;
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        text-decoration: none;
+        transition:
+            color 160ms ease,
+            border-color 160ms ease,
+            background-color 160ms ease;
+    }
+
+    a.btn:hover,
+    a.btn:focus-visible {
+        color: var(--btn-hover-color);
+        border-color: var(--btn-hover-color);
+        background: rgb(84 123 136 / 24%);
+    }
+
+    .btn--disabled {
+        opacity: 0.55;
+        cursor: not-allowed;
+    }
+</style>

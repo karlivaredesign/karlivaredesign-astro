@@ -1,0 +1,51 @@
+---
+export type Props = {
+    label: string;
+    href: string;
+};
+
+const { label, href } = Astro.props;
+---
+
+<a class="nav-link link" href={href}>
+    {label}
+</a>
+
+<style>
+    .link {
+        /* Default (light) values; overridden in dark contexts below */
+        --navlink-color: var(--color-charcoal);
+        --navlink-hover-color: var(--color-charcoal);
+
+        color: var(--navlink-color);
+        border: 1px solid var(--navlink-color);
+        border-radius: 16px;
+        padding: 8px 16px;
+        text-transform: lowercase;
+        background: rgb(255 255 255 / 1%);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        text-decoration: none;
+        text-underline-offset: 0.25em;
+        text-decoration-thickness: 1px;
+        transition:
+            color 160ms ease,
+            border-color 160ms ease,
+            background-color 160ms ease,
+            text-decoration-color 160ms ease;
+    }
+
+    .link:hover,
+    .link:focus-visible {
+        color: var(--navlink-hover-color);
+        border-color: var(--navlink-hover-color);
+        background: rgb(84 123 136 / 24%);
+    }
+
+    /* Dark variation: opt in via an ancestor class/attribute */
+    :global([data-theme='dark']) .link,
+    :global(.theme-dark) .link {
+        --navlink-color: var(--color-charcoal);
+        --navlink-hover-color: var(--color-cream);
+    }
+</style>

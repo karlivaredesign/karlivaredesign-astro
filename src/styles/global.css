@@ -1,0 +1,381 @@
+/* ─────────────────────────────────────────────────────────
+   Portfolio Design Tokens — Typography
+   Fonts: Ofelia Text (display/headings), Arial (body/labels)
+   Colors: cream #fdf3e9 | charcoal #585551 | teal #547b88
+───────────────────────────────────────────────────────── */
+
+:root {
+    --font-display: 'Ofelia Text', Georgia, serif;
+    --font-heading: 'Ofelia Text', Georgia, serif;
+    --font-nav-link: 'Ofelia Text', Georgia, serif;
+    --font-project-card: 'Ofelia Text', Georgia, serif;
+    --font-button: 'Ofelia Text', Georgia, serif;
+    --font-body: Arial, Helvetica, sans-serif;
+    --font-caption: Arial, Helvetica, sans-serif;
+  
+    --color-cream: #fdf3e9;
+    --color-charcoal: #585551;
+    --color-teal: #547b88;
+
+    /* Breakpoint tokens (for reference, docs, and optional JS usage)
+       CSS custom properties are not valid inside @media in plain CSS, so
+       the same numeric values are repeated in media queries below.
+       Strategy: mobile-first defaults + min-width overrides.
+       - sm: larger phones / small landscape
+       - md: tablets
+       - lg: desktop layout switch
+       - xl: large desktop */
+    --bp-sm: 480px;
+    --bp-md: 768px;
+    --bp-lg: 1024px;
+    --bp-xl: 1440px;
+
+    /* Global layout grid tokens (mobile defaults) */
+    --grid-columns: 5;
+    --grid-margin: 24px;
+    --grid-gutter: 20px;
+  }
+
+  /* lg and up: desktop grid */
+  @media (min-width: 1024px) {
+    :root {
+      --grid-columns: 12;
+      --grid-margin: 40px;
+    }
+  }
+
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--color-cream);
+    color: var(--color-charcoal);
+  }
+
+  .page-shell {
+    width: 100%;
+    box-sizing: border-box;
+    padding-inline: var(--grid-margin);
+  }
+
+  .page-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(var(--grid-columns), minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    row-gap: var(--grid-gutter);
+  }
+
+  .grid-span-full {
+    grid-column: 1 / -1;
+  }
+
+  .grid-span-1 { grid-column: span 1; }
+  .grid-span-2 { grid-column: span 2; }
+  .grid-span-3 { grid-column: span 3; }
+  .grid-span-4 { grid-column: span 4; }
+  .grid-span-5 { grid-column: span 5; }
+  .grid-span-6 { grid-column: span 6; }
+  .grid-span-7 { grid-column: span 7; }
+  .grid-span-8 { grid-column: span 8; }
+  .grid-span-9 { grid-column: span 9; }
+  .grid-span-10 { grid-column: span 10; }
+  .grid-span-11 { grid-column: span 11; }
+  .grid-span-12 { grid-column: span 12; }
+
+  /* Responsive helper utilities
+     Keep these small and composable; prefer component styles first. */
+  .u-show-sm-up,
+  .u-show-md-up,
+  .u-show-lg-up,
+  .u-show-xl-up,
+  .u-show-lg-flex {
+    display: none !important;
+  }
+
+  @media (min-width: 480px) {
+    .u-show-sm-up { display: block !important; }
+  }
+
+  @media (min-width: 768px) {
+    .u-show-md-up { display: block !important; }
+  }
+
+  @media (min-width: 1024px) {
+    .u-show-lg-up { display: block !important; }
+    .u-show-lg-flex { display: flex !important; }
+  }
+
+  @media (min-width: 1440px) {
+    .u-show-xl-up { display: block !important; }
+  }
+  
+  /* ─── Display ─────────────────────────────────────────────
+     Large → Small responsive variants
+     All display uses Ofelia Text
+  ──────────────────────────────────────────────────────── */
+  
+  .display-1-lg {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 96px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-1-sm {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-2-lg {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 80px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-2-sm {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 40px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-3-lg {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 64px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-3-sm {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 32px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-4-lg {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 48px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .display-4-sm {
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+ 
+  
+  /* ─── Headings ────────────────────────────────────────────
+     Large → Small responsive variants
+     All headings use Ofelia Text
+  ──────────────────────────────────────────────────────── */
+  
+  .heading-1-lg {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 48px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-1-sm {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-2-lg {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-2-sm {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-3-lg {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-3-sm {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-4-lg {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-4-sm {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-5-lg {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-5-sm {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+
+  .heading-6-lg {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  .heading-6-sm {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 132%;
+    letter-spacing: -4%;
+  }
+  
+  /* ─── Body ────────────────────────────────────────────────
+     All body uses Arial
+  ──────────────────────────────────────────────────────── */
+  
+  .body-lg {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 150%;
+    letter-spacing: 0%;
+  }
+  
+  .body-base {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 152%;
+    letter-spacing: 0%;
+  }
+  
+  .body-sm {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 152%;
+    letter-spacing: 0%;
+  }
+  
+  /* ─── Labels ──────────────────────────────────────────────
+     All labels use Arial
+  ──────────────────────────────────────────────────────── */
+  
+  .label-lg {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 152%;
+    letter-spacing: 0%;
+  }
+  
+  .label-base {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 152%;
+    letter-spacing: 0%;
+  }
+  
+  .label-sm {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 14px;
+    line-height: 152%;
+    letter-spacing: 0%;
+  }
+
+  /* ─── Other Type Styles ────────────────────────────────────────────
+     
+  ──────────────────────────────────────────────────────── */
+  
+  .nav-link{
+    font-family: var(--font-nav-link);
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -4%;
+  }
+
+  .button{
+    font-family: var(--font-button);
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+    letter-spacing: 0%;
+  }
+
+  .caption{
+    font-family: var(--font-caption);
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 144%;
+    letter-spacing: 0%;
+  }
+
+  .project-card{
+    font-family: var(--font-project-card);
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 28px;
+    letter-spacing: -8%;
+  }
