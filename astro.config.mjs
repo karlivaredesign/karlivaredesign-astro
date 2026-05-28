@@ -6,6 +6,5 @@ import mdx from '@astrojs/mdx';
 export default defineConfig({
     integrations: [mdx()],
     site: 'https://karlivare.com',
-    base: '/karlivaredesign-astro',
     trailingSlash: 'always',
 });
