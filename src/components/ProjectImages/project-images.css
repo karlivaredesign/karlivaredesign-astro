@@ -27,8 +27,20 @@
     aspect-ratio: 354 / 213.44;
 }
 
+.project-image-frame--landscapeWide {
+    aspect-ratio: 1360 / 630;
+}
+
 .project-image-frame--portrait {
     aspect-ratio: 354 / 519.43;
+}
+
+.project-image-frame--portraitTall {
+    aspect-ratio: 644 / 822;
+}
+
+.project-image-frame--square {
+    aspect-ratio: 354 / 354;
 }
 
 .project-image-frame--fill {

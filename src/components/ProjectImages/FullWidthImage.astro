@@ -1,10 +1,13 @@
 ---
 import ProjectImage from './ProjectImage.astro';
-import type { ProjectFrameMedia } from './types';
+import type { ImageVariant, ProjectFrameMedia } from './types';
 
-export type Props = ProjectFrameMedia;
+export type Props = ProjectFrameMedia & {
+    /** Frame aspect ratio — default landscape; use `landscapeWide` (1360×630) for wide stills. */
+    variant?: Extract<ImageVariant, 'landscape' | 'landscapeWide'>;
+};
 
-const props = Astro.props;
+const { variant = 'landscape', ...media } = Astro.props;
 ---
 
-<ProjectImage {...props} variant="landscape" />
+<ProjectImage {...media} variant={variant} />

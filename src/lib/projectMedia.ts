@@ -2,6 +2,7 @@ import type { CollectionEntry } from 'astro:content';
 import type { Media } from '../components/ProjectCard.astro';
 
 type ProjectEntry = CollectionEntry<'projects'>;
+type MediaType = 'image' | 'video';
 
 function siteRootUrl(): URL {
     return new URL(import.meta.env.BASE_URL, import.meta.env.SITE);
@@ -30,36 +31,42 @@ export function resolvePublicPath(path: string): string {
     return withBase(path);
 }
 
-/** Shared cover media for listing card and project hero. */
-export function getCoverMedia(project: ProjectEntry): Media {
-    const { coverMediaType, cover, coverPoster } = project.data;
-
-    if (coverMediaType === 'video') {
+function toMedia(mediaType: MediaType, src: string, poster?: string): Media {
+    if (mediaType === 'video') {
         return {
             type: 'video',
-            src: resolvePublicPath(cover),
-            poster: coverPoster ? resolvePublicPath(coverPoster) : undefined,
+            src: resolvePublicPath(src),
+            poster: poster ? resolvePublicPath(poster) : undefined,
         };
     }
 
     return {
         type: 'image',
-        src: resolvePublicPath(cover),
+        src: resolvePublicPath(src),
     };
 }
 
-/** @deprecated Use getCoverMedia — same shared asset. */
-export const getListingMedia = getCoverMedia;
+/** Listing card thumbnail media. */
+export function getListingCoverMedia(project: ProjectEntry): Media {
+    const { listingCoverMediaType, listingCover, listingCoverPoster } = project.data;
+    return toMedia(listingCoverMediaType, listingCover, listingCoverPoster);
+}
 
-/** @deprecated Use getCoverMedia — same shared asset. */
-export const getHeroMedia = getCoverMedia;
+/** Project hero background media. */
+export function getHeroMedia(project: ProjectEntry): Media {
+    const { heroCoverMediaType, heroCover, heroCoverPoster } = project.data;
+    return toMedia(heroCoverMediaType, heroCover, heroCoverPoster);
+}
 
 /** Default public paths for a project slug (for docs / copy-paste in frontmatter). */
 export function projectMediaPaths(slug: string) {
     const base = `/projects/${slug}`;
     return {
-        coverImage: `${base}/cover.jpg`,
-        coverVideo: `${base}/cover.mp4`,
-        coverPoster: `${base}/poster.jpg`,
+        listingCoverImage: `${base}/listing-cover.jpg`,
+        listingCoverVideo: `${base}/listing-cover.mp4`,
+        listingCoverPoster: `${base}/listing-cover-poster.jpg`,
+        heroCoverImage: `${base}/hero-cover.jpg`,
+        heroCoverVideo: `${base}/hero-cover.mp4`,
+        heroCoverPoster: `${base}/hero-cover-poster.jpg`,
     };
 }

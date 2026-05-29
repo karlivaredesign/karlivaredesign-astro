@@ -1,4 +1,10 @@
-export type ImageVariant = 'landscape' | 'portrait' | 'fill';
+export type ImageVariant =
+    | 'landscape'
+    | 'landscapeWide'
+    | 'portrait'
+    | 'portraitTall'
+    | 'square'
+    | 'fill';
 
 /** One gallery frame — image (default) or video. */
 export type ProjectFrameMedia = {

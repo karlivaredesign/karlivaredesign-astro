@@ -1,16 +1,22 @@
 ---
 import type { Media } from './ProjectCard.astro';
 
+export type HeroOverlayStyle = 'light' | 'dark';
+
 export type Props = {
     title: string;
     media: Media;
+    overlayStyle?: HeroOverlayStyle;
 };
 
-const { title, media } = Astro.props;
-const mediaLabel = `${title} project cover`;
+const { title, media, overlayStyle = 'light' } = Astro.props;
+const mediaLabel = `${title} project hero`;
 ---
 
-<section class="project-hero" aria-label={`${title} project hero`}>
+<section
+    class:list={['project-hero', overlayStyle === 'dark' && 'project-hero--dark']}
+    aria-label={`${title} project hero`}
+>
     <div class="project-hero__media" aria-hidden="true">
         {
             media.type === 'video' ? (
@@ -62,6 +68,14 @@ const mediaLabel = `${title} project cover`;
         inset: 0;
         background: color-mix(in srgb, var(--color-cream) 75%, transparent);
         pointer-events: none;
+    }
+
+    .project-hero--dark .project-hero__overlay {
+        background: color-mix(in srgb, #585551 56%, transparent);
+    }
+
+    .project-hero--dark .project-hero__title {
+        color: var(--color-cream);
     }
 
     .project-hero__title {

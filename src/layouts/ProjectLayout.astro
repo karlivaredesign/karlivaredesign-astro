@@ -5,9 +5,11 @@ import Navigation from '../components/Navigation.astro';
 
 interface Props {
     title?: string;
+    heroOverlayStyle?: 'light' | 'dark';
 }
 
-const { title = 'Karli Vare' } = Astro.props;
+const { title = 'Karli Vare', heroOverlayStyle = 'light' } = Astro.props;
+const useHeroNavTheme = heroOverlayStyle === 'dark';
 ---
 
 <html lang="en">
@@ -20,7 +22,7 @@ const { title = 'Karli Vare' } = Astro.props;
     </head>
     <body>
         <div class="project-layout__nav">
-            <Navigation variant="light" />
+            <Navigation variant={useHeroNavTheme ? 'dark' : 'light'} />
         </div>
         <slot name="hero" />
         <main class="page-shell">
@@ -31,6 +33,31 @@ const { title = 'Karli Vare' } = Astro.props;
                 </div>
             </div>
         </main>
+        {useHeroNavTheme && (
+            <script>
+                function initHeroNavTheme() {
+                    const nav = document.querySelector('.project-layout__nav nav.navigation');
+                    const hero = document.querySelector('.project-hero');
+
+                    if (!nav || !hero) return;
+
+                    const observer = new IntersectionObserver(
+                        ([entry]) => {
+                            if (entry.isIntersecting) {
+                                nav.setAttribute('data-theme', 'dark');
+                            } else {
+                                nav.removeAttribute('data-theme');
+                            }
+                        },
+                        { threshold: 0 },
+                    );
+
+                    observer.observe(hero);
+                }
+
+                initHeroNavTheme();
+            </script>
+        )}
     </body>
 </html>
 

@@ -5,7 +5,7 @@ import Navigation from '../components/Navigation.astro';
 import YearTag from '../components/YearTag.astro';
 import Button from '../components/Button.astro';
 import ProjectCard from '../components/ProjectCard.astro';
-import { getCoverMedia } from '../lib/projectMedia';
+import { getListingCoverMedia } from '../lib/projectMedia';
 import { getCollection } from 'astro:content';
 
 const projects = await getCollection('projects');
@@ -99,7 +99,7 @@ const draigProject = projects.find((project) => project.id === 'draig-therapeuti
                 <ProjectCard
                     client={draigProject.data.client}
                     year={draigProject.data.year}
-                    media={getCoverMedia(draigProject)}
+                    media={getListingCoverMedia(draigProject)}
                     listingDescription={draigProject.data.listingDescription}
                     href={`/projects/${draigProject.id}`}
                 />

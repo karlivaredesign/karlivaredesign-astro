@@ -4,7 +4,7 @@ import Navigation from '../components/Navigation.astro';
 import MissionStatement from '../components/MissionStatement.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import AboutMe from '../components/AboutMe.astro';
-import { getCoverMedia, withBase } from '../lib/projectMedia';
+import { getListingCoverMedia, withBase } from '../lib/projectMedia';
 import { getCollection } from 'astro:content';
 
 const projects = (await getCollection('projects')).sort(
@@ -25,7 +25,7 @@ const projectHref = (id: string) => withBase(`projects/${id}/`);
                 <ProjectCard
                     client={project.data.client}
                     year={project.data.year}
-                    media={getCoverMedia(project)}
+                    media={getListingCoverMedia(project)}
                     listingDescription={project.data.listingDescription}
                     href={projectHref(project.id)}
                     published={project.data.published}

@@ -7,11 +7,18 @@ const projects = defineCollection({
         client: z.string(),
         year: z.string(),
         sortOrder: z.number(),
-        /** Shared media for listing card + project hero (one image or one video). */
-        coverMediaType: z.enum(['image', 'video']).default('image'),
-        cover: z.string(),
-        /** Optional still frame before video loads (only when coverMediaType is video). */
-        coverPoster: z.string().optional(),
+        /** Listing card thumbnail — image or video. */
+        listingCoverMediaType: z.enum(['image', 'video']).default('image'),
+        listingCover: z.string(),
+        /** Optional still frame before listing video loads. */
+        listingCoverPoster: z.string().optional(),
+        /** Project hero background — image or video. */
+        heroCoverMediaType: z.enum(['image', 'video']).default('image'),
+        heroCover: z.string(),
+        /** Optional still frame before hero video loads. */
+        heroCoverPoster: z.string().optional(),
+        /** Hero overlay tint — light (cream) or dark (charcoal-brown). */
+        heroOverlayStyle: z.enum(['light', 'dark']).default('light'),
         /** When false, listing shows "under construction" and the project page is not built. */
         published: z.boolean().default(false),
         listingDescription: z.string(),

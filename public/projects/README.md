@@ -4,31 +4,41 @@ Drop assets for each project in `public/projects/<project-slug>/`.
 
 The slug should match the MDX filename in `src/content/projects/` (e.g. `draig-therapeutics`).
 
-## One cover per project
+## Listing cover vs hero cover
 
-The **same file** is used for:
+Each project can use **separate** assets for:
 
-- the listing page project card, and
-- the hero on that project’s detail page
+- the **listing cover** — thumbnail on the home page project card, and
+- the **hero cover** — full-viewport background on that project’s detail page
 
-Use **either** an image **or** a video — not separate listing vs hero files.
+Each can be **either** an image **or** a video.
 
 ## Per-project folder
 
 ```text
 public/projects/<project-slug>/
-  cover.jpg       # when coverMediaType is image
-  cover.mp4       # when coverMediaType is video (or .mov, .webm)
-  poster.jpg      # optional — video poster only (before playback)
+  listing-cover.jpg              # when listingCoverMediaType is image
+  listing-cover.mp4              # when listingCoverMediaType is video (or .mov, .webm)
+  listing-cover-poster.jpg       # optional — listing video poster only
+  hero-cover.jpg                 # when heroCoverMediaType is image
+  hero-cover.mp4                 # when heroCoverMediaType is video (or .mov, .webm)
+  hero-cover-poster.jpg          # optional — hero video poster only
 ```
+
+You can reuse the same file for both if you prefer — just point both frontmatter paths at it.
 
 ## Frontmatter
 
 ```yaml
-coverMediaType: image   # or video
-cover: /projects/<project-slug>/cover.jpg
-# cover: /projects/<project-slug>/cover.mp4   # when video
-# coverPoster: /projects/<project-slug>/poster.jpg   # optional, video only
+listingCoverMediaType: image   # or video
+listingCover: /projects/<project-slug>/listing-cover.jpg
+# listingCover: /projects/<project-slug>/listing-cover.mp4   # when video
+# listingCoverPoster: /projects/<project-slug>/listing-cover-poster.jpg   # optional, video only
+
+heroCoverMediaType: image   # or video
+heroCover: /projects/<project-slug>/hero-cover.jpg
+# heroCover: /projects/<project-slug>/hero-cover.mp4   # when video
+# heroCoverPoster: /projects/<project-slug>/hero-cover-poster.jpg   # optional, video only
 ```
 
 Copy `public/projects/_template/` when starting a new project.
@@ -39,9 +49,10 @@ Add gallery images and videos in the same `public/projects/<project-slug>/` fold
 
 Available components (no import needed):
 
-- `FullWidthImage` — one frame (`src`, `alt`, optional `type`, `poster`)
+- `FullWidthImage` — one frame (`src`, `alt`, optional `type`, `poster`, optional `variant`: `landscape` or `landscapeWide` for 1360×630 stills)
 - `HalfWidthLandscape` — `images` (two landscape frames)
-- `HalfWidthPortrait` — `images` (two portrait frames)
+- `HalfWidthPortrait` — `images` (two portrait frames; optional `variant`: `portrait` or `portraitTall` for 644×822 frames)
+- `TwoColSquareImage` — `images` (two square 354×354 frames; column on mobile, row at lg)
 - `ThreeColPortrait` — `images` (three portrait frames)
 - `MixedLandscapePortrait` — `landscape`, `portrait`
 

@@ -5,7 +5,7 @@ import Credits from '../../components/Credits.astro';
 import ProjectGallery from '../../components/ProjectGallery.astro';
 import ProjectHero from '../../components/ProjectHero.astro';
 import { projectGalleryMdxComponents } from '../../components/ProjectImages/mdxComponents';
-import { getCoverMedia } from '../../lib/projectMedia';
+import { getHeroMedia } from '../../lib/projectMedia';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -20,12 +20,12 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-const { client, year, projectDescription, deliverables, credits } = project.data;
+const { client, year, projectDescription, deliverables, credits, heroOverlayStyle } = project.data;
 const { Content } = await render(project);
 ---
 
-<ProjectLayout title={`${client} | Karli Vare`}>
-    <ProjectHero slot="hero" title={client} media={getCoverMedia(project)} />
+<ProjectLayout title={`${client} | Karli Vare`} heroOverlayStyle={heroOverlayStyle}>
+    <ProjectHero slot="hero" title={client} media={getHeroMedia(project)} overlayStyle={heroOverlayStyle} />
 
     <AboutTheProject
         class="grid-span-full"
