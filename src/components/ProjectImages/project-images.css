@@ -76,6 +76,10 @@
         align-items: stretch;
     }
 
+    .project-images-mixed--reverse {
+        grid-template-columns: 1fr 2fr;
+    }
+
     .project-images-mixed__landscape {
         display: flex;
         min-height: 0;
@@ -89,5 +93,13 @@
 
     .project-images-mixed__portrait {
         min-width: 0;
+    }
+
+    .project-images-mixed--reverse .project-images-mixed__landscape {
+        order: 2;
+    }
+
+    .project-images-mixed--reverse .project-images-mixed__portrait {
+        order: 1;
     }
 }

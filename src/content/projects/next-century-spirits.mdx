@@ -63,10 +63,18 @@ credits:
   }}
 />
 
-<FullWidthImage
-  type="video"
-  src="/projects/next-century-spirits/gallery-05.mov"
-  alt="Next Century Spirits site interaction"
+<MixedLandscapePortrait
+  reverse={true}
+  landscape={{
+    type: 'video',
+    src: '/projects/next-century-spirits/gallery-05-landscape.mov',
+    alt: 'Desktop experience in motion',
+  }}
+  portrait={{
+    type: 'video',
+    src: '/projects/next-century-spirits/gallery-05-portrait.mov',
+    alt: 'Mobile screen',
+  }}
 />
 
 <MixedLandscapePortrait
@@ -80,6 +88,7 @@ credits:
     alt: 'Mobile screen',
   }}
 />
+
 
 <TwoColSquareImage
   images={[

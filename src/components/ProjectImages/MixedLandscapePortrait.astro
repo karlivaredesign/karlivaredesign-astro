@@ -5,12 +5,13 @@ import type { ProjectFrameMedia } from './types';
 export type Props = {
     landscape: ProjectFrameMedia;
     portrait: ProjectFrameMedia;
+    reverse?: boolean;
 };
 
-const { landscape, portrait } = Astro.props;
+const { landscape, portrait, reverse = false } = Astro.props;
 ---
 
-<div class="project-images-mixed">
+<div class:list={['project-images-mixed', { 'project-images-mixed--reverse': reverse }]}>
     <div class="project-images-mixed__landscape">
         <ProjectImage {...landscape} variant="fill" />
     </div>
