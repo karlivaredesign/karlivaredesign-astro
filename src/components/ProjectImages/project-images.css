@@ -56,6 +56,14 @@
     margin: 0;
 }
 
+.project-images-mixed__landscape .project-image-frame--fill {
+    aspect-ratio: 354 / 213.44;
+}
+
+.project-images-mixed__portrait .project-image-frame--fill {
+    aspect-ratio: 354 / 519.43;
+}
+
 @media (min-width: 1024px) {
     .project-image-frame {
         border-radius: 48px;
@@ -80,19 +88,17 @@
         grid-template-columns: 1fr 2fr;
     }
 
-    .project-images-mixed__landscape {
+    .project-images-mixed__landscape,
+    .project-images-mixed__portrait {
         display: flex;
         min-height: 0;
         min-width: 0;
     }
 
-    .project-images-mixed__landscape .project-image-frame {
+    .project-images-mixed__landscape .project-image-frame,
+    .project-images-mixed__portrait .project-image-frame {
         flex: 1;
         aspect-ratio: unset;
-    }
-
-    .project-images-mixed__portrait {
-        min-width: 0;
     }
 
     .project-images-mixed--reverse .project-images-mixed__landscape {
