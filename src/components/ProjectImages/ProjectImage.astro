@@ -6,9 +6,10 @@ export type Props = ProjectFrameMedia & {
     variant?: ImageVariant;
 };
 
-const { src, alt, type = 'image', poster, variant = 'landscape' } = Astro.props;
+const { src, alt, type = 'image', poster, zoom, variant = 'landscape' } = Astro.props;
 const resolvedSrc = resolvePublicPath(src);
 const resolvedPoster = poster ? resolvePublicPath(poster) : undefined;
+const mediaStyle = zoom ? { transform: `scale(${zoom})` } : undefined;
 ---
 
 <figure class:list={['project-image-frame', `project-image-frame--${variant}`]}>
@@ -17,6 +18,7 @@ const resolvedPoster = poster ? resolvePublicPath(poster) : undefined;
             <video
                 src={resolvedSrc}
                 poster={resolvedPoster}
+                style={mediaStyle}
                 muted
                 loop
                 playsinline
@@ -24,7 +26,7 @@ const resolvedPoster = poster ? resolvePublicPath(poster) : undefined;
                 aria-label={alt}
             />
         ) : (
-            <img src={resolvedSrc} alt={alt} loading="lazy" decoding="async" />
+            <img src={resolvedSrc} alt={alt} style={mediaStyle} loading="lazy" decoding="async" />
         )
     }
 </figure>

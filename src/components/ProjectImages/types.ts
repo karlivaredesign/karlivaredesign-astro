@@ -13,4 +13,6 @@ export type ProjectFrameMedia = {
     type?: 'image' | 'video';
     /** Optional still before video loads (video only). */
     poster?: string;
+    /** Scale inside the frame (e.g. 1.05 crops ~5% from the edges). */
+    zoom?: number;
 };
