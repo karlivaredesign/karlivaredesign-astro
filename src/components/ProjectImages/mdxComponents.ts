@@ -4,6 +4,7 @@ import HalfWidthPortrait from './HalfWidthPortrait.astro';
 import MixedLandscapePortrait from './MixedLandscapePortrait.astro';
 import ThreeColPortrait from './ThreeColPortrait.astro';
 import TwoColSquareImage from './TwoColSquareImage.astro';
+import VideoGallery from './VideoGallery.astro';
 
 /** MDX components available in project gallery bodies without per-file imports. */
 export const projectGalleryMdxComponents = {
@@ -13,4 +14,5 @@ export const projectGalleryMdxComponents = {
     TwoColSquareImage,
     ThreeColPortrait,
     MixedLandscapePortrait,
+    VideoGallery,
 };

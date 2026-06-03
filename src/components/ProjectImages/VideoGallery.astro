@@ -1,0 +1,50 @@
+---
+export type VideoGalleryItem = {
+    /** Numeric Vimeo video ID from the video URL (e.g. vimeo.com/123456789). */
+    vimeoId: string;
+    /** Accessible label for the embed (shown to assistive tech). */
+    title: string;
+};
+
+export type Props = {
+    videos: [
+        VideoGalleryItem,
+        VideoGalleryItem,
+        VideoGalleryItem,
+        VideoGalleryItem,
+        VideoGalleryItem,
+        VideoGalleryItem,
+    ];
+};
+
+const { videos } = Astro.props;
+
+function vimeoEmbedUrl(vimeoId: string) {
+    const params = new URLSearchParams({
+        autoplay: '0',
+        title: '0',
+        byline: '0',
+        portrait: '0',
+        dnt: '1',
+    });
+    return `https://player.vimeo.com/video/${vimeoId}?${params}`;
+}
+---
+
+<div class="video-gallery">
+    {
+        videos.map((video) => (
+            <figure class="video-gallery__phone">
+                <div class="video-gallery__screen">
+                    <iframe
+                        src={vimeoEmbedUrl(video.vimeoId)}
+                        title={video.title}
+                        allow="fullscreen; picture-in-picture; encrypted-media"
+                        allowfullscreen
+                        loading="lazy"
+                    />
+                </div>
+            </figure>
+        ))
+    }
+</div>
